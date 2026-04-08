@@ -24,18 +24,19 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
 
-        // Kullanıcıyı DB'den al
-        User dbUser = repo.findByUsername(user.getUsername())
+        // Tek kullanıcı: admin
+        User dbUser = repo.findByUsername("admin")
                 .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
 
         // Şifre kontrol
         if (!encoder.matches(user.getPassword(), dbUser.getPassword())) {
-            throw new RuntimeException("Şifre yanlış");
+            return ResponseEntity.status(401).body("Şifre yanlış");
         }
 
         // Token oluştur
         String token = jwtUtil.generateToken(dbUser.getUsername());
 
+        // Döndür
         return ResponseEntity.ok(token);
     }
 }

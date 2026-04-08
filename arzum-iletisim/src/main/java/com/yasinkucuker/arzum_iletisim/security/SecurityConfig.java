@@ -23,15 +23,16 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/auth/**").permitAll()       // login endpoint serbest
+                        .requestMatchers("/dashboard/**").authenticated() // dashboard altı korumalı
+                        .anyRequest().permitAll()                       // diğer sayfalar serbest
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    // 🔥 BURASI EKSİKTİ
+    // Şifre kontrolü için encoder (BCrypt)
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
