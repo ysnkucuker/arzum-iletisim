@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -23,8 +24,10 @@ public class CorporateCustomer {
     private String phone;
 
     @OneToMany(mappedBy = "customer")
+    @ToString.Exclude
     private List<Sale> sales;
 
     @OneToMany(mappedBy = "customer")
+    @ToString.Exclude
     private List<Transaction> transactions;
 }

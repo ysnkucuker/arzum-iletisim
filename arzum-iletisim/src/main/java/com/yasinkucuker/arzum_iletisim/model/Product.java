@@ -1,9 +1,7 @@
 package com.yasinkucuker.arzum_iletisim.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -23,5 +21,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @ToString.Exclude // Döngüyü kırmak için burayı ekle
+    @EqualsAndHashCode.Exclude // Opsiyonel: Karşılaştırma döngülerini de engeller
     private Category category;
 }

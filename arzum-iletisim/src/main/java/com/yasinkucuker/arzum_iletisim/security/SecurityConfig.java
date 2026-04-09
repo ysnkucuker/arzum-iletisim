@@ -19,15 +19,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         http
-                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()       // login endpoint serbest
-                        .requestMatchers("/dashboard/**").authenticated() // dashboard altı korumalı
-                        .anyRequest().permitAll()                       // diğer sayfalar serbest
+                        // 1. Herkese açık olan sayfalar ve dosyalar
+                        .requestMatchers("/", "/index", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/login", "/css/**").permitAll()
+                        .requestMatchers("/dashboard/**").authenticated() // dashboard altı kilitli
+                        .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .formLogin(form -> form
+                        .loginPage("/login")               // Kendi login sayfamız
+                        .defaultSuccessUrl("/dashboard/index", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll()
+                );
 
         return http.build();
     }

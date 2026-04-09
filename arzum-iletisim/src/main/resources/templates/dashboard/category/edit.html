@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kategori Düzenle - Arzum İletişim</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="bi bi-pencil-square"></i> Kategori Düzenle</h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/dashboard/category/update/{id}(id=${category.id})}"
+                          th:object="${category}" method="post">
+
+                        <input type="hidden" th:field="*{id}" />
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Kategori Adı</label>
+                            <input type="text" th:field="*{name}" class="form-control"
+                                   required placeholder="Örn: Aksesuar">
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/dashboard/category}" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Geri Dön
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="bi bi-check-circle"></i> Değişiklikleri Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-3 small">
+                <i class="bi bi-info-circle"></i> Bu kategoriyi güncellediğinizde, bu kategoriye bağlı olan tüm ürünler yeni isim altında görünmeye devam edecektir.
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

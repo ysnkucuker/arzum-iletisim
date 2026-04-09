@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -21,5 +22,6 @@ public class Category {
 
     // Category altındaki ürünler
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @ToString.Exclude // Döngüyü kırmak için burayı ekle
     private List<Product> products;
 }

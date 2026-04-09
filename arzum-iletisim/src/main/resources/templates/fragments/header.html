@@ -1,0 +1,66 @@
+<header th:fragment="headerFragment" xmlns:th="http://www.thymeleaf.org">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+    <div class="container">
+      <a class="navbar-brand fw-bold" th:href="@{/dashboard/index}">
+        <i class="bi bi-telephone-outbound-fill me-2"></i>ARZUM İLETİŞİM
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/dashboard/index}">Panel</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Envanter
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/dashboard/category}"><i class="bi bi-tags me-2"></i>Kategoriler</a></li>
+              <li><a class="dropdown-item" th:href="@{/dashboard/product}"><i class="bi bi-box-seam me-2"></i>Ürünler</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/dashboard/technicalservice}">
+              <i class="bi bi-wrench me-1"></i>Teknik Servis
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/dashboard/sale}">
+              <i class="bi bi-cart-check me-1"></i>Satışlar
+            </a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Yönetim
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/dashboard/corporatecustomer}"><i class="bi bi-building me-2"></i>Kurumsal Müşteriler</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" th:href="@{/dashboard/transaction}"><i class="bi bi-cash-stack me-2"></i>İşlem Geçmişi</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center text-white">
+                    <span class="me-3 small border-end pe-3">
+                        <i class="bi bi-person-circle me-1"></i> <span th:text="${#authentication.name}">Admin</span>
+                    </span>
+          <form th:action="@{/logout}" method="post" class="m-0">
+            <button type="submit" class="btn btn-outline-danger btn-sm border-0">
+              <i class="bi bi-box-arrow-right"></i> Çıkış
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

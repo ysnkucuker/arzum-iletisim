@@ -1,9 +1,7 @@
 package com.yasinkucuker.arzum_iletisim.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -26,5 +24,7 @@ public class Sale {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private CorporateCustomer customer;
 }

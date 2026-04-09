@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Servis Kaydı Düzenle - Arzum İletişim</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<div class="container mt-4">
+    <div class="card shadow mx-auto" style="max-width: 700px;">
+        <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-pencil-square"></i> Servis Kaydını Güncelle</h5>
+            <small class="fw-bold" th:text="'Kayıt ID: #' + ${technicalService.id}"></small>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/dashboard/technicalservice/update/{id}(id=${technicalService.id})}"
+                  th:object="${technicalService}" method="post">
+
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label fw-bold">İlişkili Ürün</label>
+                        <select th:field="*{product}" class="form-select" required>
+                            <option value="">Ürün Seçiniz...</option>
+                            <option th:each="p : ${products}"
+                                    th:value="${p.id}"
+                                    th:text="${p.name + ' (' + p.barcode + ')'}"
+                                    th:selected="${technicalService.product != null && p.id == technicalService.product.id}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label fw-bold">Hizmet/İşlem Adı</label>
+                        <input type="text" th:field="*{serviceName}" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Arıza Giriş Tarihi</label>
+                        <input type="datetime-local" th:field="*{requestDate}" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold text-success">Tamamlanma / Teslim Tarihi</label>
+                        <input type="datetime-local" th:field="*{completionDate}" class="form-control">
+                        <div class="form-text text-muted">Cihaz teslim edildiğinde bu alanı doldurun.</div>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label fw-bold">Arıza Notu / Yapılan İşlemler</label>
+                        <textarea th:field="*{description}" class="form-control" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{/dashboard/technicalservice}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Vazgeç
+                    </a>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="bi bi-check-circle"></i> Değişiklikleri Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:if="${technicalService.completionDate != null}" class="alert alert-success mt-3 shadow-sm mx-auto" style="max-width: 700px;">
+        <i class="bi bi-check-lg"></i> Bu servis kaydı tamamlanmış ve cihaz teslim edilmiştir.
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

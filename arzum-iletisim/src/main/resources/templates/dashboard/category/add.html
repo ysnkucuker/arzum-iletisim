@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Yeni Kategori - Arzum İletişim</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Yeni Kategori Ekle</h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/dashboard/category/save}" th:object="${category}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Kategori Adı</label>
+                            <input type="text" th:field="*{name}" class="form-control" required placeholder="Örn: Akıllı Telefon">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/dashboard/category}" class="btn btn-secondary">İptal</a>
+                            <button type="submit" class="btn btn-success">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kategoriler - Arzum İletişim</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-tags"></i> Kategori Yönetimi</h2>
+        <a th:href="@{/dashboard/category/add}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Yeni Kategori
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Kategori Adı</th>
+                    <th class="text-end">İşlemler</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cat : ${categories}">
+                    <td th:text="${cat.id}">1</td>
+                    <td th:text="${cat.name}">Kategori Adı</td>
+                    <td class="text-end">
+                        <a th:href="@{/dashboard/category/edit/{id}(id=${cat.id})}" class="btn btn-sm btn-outline-warning">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a th:href="@{/dashboard/category/delete/{id}(id=${cat.id})}"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Silmek istediğinize emin misiniz?')">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
